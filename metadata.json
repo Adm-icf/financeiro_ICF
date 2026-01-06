@@ -1,0 +1,7 @@
+{
+  "name": "ICF Financeiro",
+  "description": "Aplicativo mobile-first para controle financeiro diário da igreja ICF, otimizado para voluntários e líderes.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
