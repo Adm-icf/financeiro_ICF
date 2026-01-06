@@ -37,4 +37,8 @@ export interface DailySummary {
   entradas: number;
   despesas: number;
   saldo: number;
+  // Novos campos para gráficos
+  mesAtualEntradas: number;
+  mesAnteriorEntradas: number;
+  tendenciaDiaria: number[]; // Valores dos últimos 7-30 dias
 }
