@@ -33,12 +33,15 @@ const Summary: React.FC<SummaryProps> = ({ data, onBack }) => {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" />
           </svg>
         </button>
-        <h2 className="text-2xl font-black uppercase tracking-tight">Análise Estratégica</h2>
+        <div className="flex flex-col">
+          <h2 className="text-2xl font-black uppercase tracking-tight">Resumo Geral</h2>
+          <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Saúde Financeira ICF</p>
+        </div>
       </div>
 
       {/* CARD 1: RESUMO FINANCEIRO DO DIA */}
       <div className="bg-white border border-gray-100 rounded-3xl p-6 shadow-sm">
-        <h3 className="text-xs font-black text-gray-400 uppercase tracking-widest mb-6">Resumo Financeiro do Dia</h3>
+        <h3 className="text-xs font-black text-gray-400 uppercase tracking-widest mb-6">Fluxo de Hoje</h3>
         
         <div className="flex justify-around items-end h-40 gap-4 mb-6">
           <div className="flex flex-col items-center flex-1 gap-2">
@@ -125,7 +128,7 @@ const Summary: React.FC<SummaryProps> = ({ data, onBack }) => {
 
       {/* CARD 3: TENDÊNCIA DE ENTRADAS */}
       <div className="bg-white border border-gray-100 rounded-3xl p-6 shadow-sm">
-        <h3 className="text-xs font-black text-gray-400 uppercase tracking-widest mb-6">Tendência de Entradas Diárias</h3>
+        <h3 className="text-xs font-black text-gray-400 uppercase tracking-widest mb-6">Tendência Mensal</h3>
         
         <div className="h-40 w-full relative mb-4">
           <svg viewBox="0 0 100 40" className="w-full h-full overflow-visible">
@@ -136,7 +139,7 @@ const Summary: React.FC<SummaryProps> = ({ data, onBack }) => {
             
             {/* Linha de Tendência Real */}
             <path
-              d={`M ${data.tendenciaDiaria.map((val, i) => `${(i / 11) * 70},${35 - (val / 3000) * 30}`).join(' L ')}`}
+              d={`M ${data.tendenciaDiaria.map((val, i) => `${(i / (data.tendenciaDiaria.length - 1 || 1)) * 100},${35 - (val / Math.max(...data.tendenciaDiaria, 1000)) * 30}`).join(' L ')}`}
               fill="none"
               stroke="black"
               strokeWidth="1.5"
@@ -144,22 +147,10 @@ const Summary: React.FC<SummaryProps> = ({ data, onBack }) => {
               strokeLinejoin="round"
             />
             
-            {/* Projeção Tracejada */}
-            <line
-              x1="70"
-              y1={35 - (data.tendenciaDiaria[data.tendenciaDiaria.length-1] / 3000) * 30}
-              x2="100"
-              y2="15"
-              stroke="black"
-              strokeWidth="1"
-              strokeDasharray="2,2"
-              opacity="0.4"
-            />
-            
-            {/* Ponto Atual */}
+            {/* Ponto Final Atual */}
             <circle 
-              cx="70" 
-              cy={35 - (data.tendenciaDiaria[data.tendenciaDiaria.length-1] / 3000) * 30} 
+              cx="100" 
+              cy={35 - (data.tendenciaDiaria[data.tendenciaDiaria.length-1] / Math.max(...data.tendenciaDiaria, 1000)) * 30} 
               r="2" 
               fill="black" 
             />
